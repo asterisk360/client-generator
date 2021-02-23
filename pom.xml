@@ -1,0 +1,84 @@
+<?xml version='1.0' encoding='utf-8'?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>asterisk360.xmodule</groupId>
+    <artifactId>client</artifactId>
+    <version>1.0.0</version>
+    <packaging>jar</packaging>
+    
+    <properties>
+        <maven.compiler.source>15</maven.compiler.source>
+        <maven.compiler.target>15</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <openApiModule>identity</openApiModule>
+        <openApiUrl>http://127.0.0.1:8080/openapi</openApiUrl>
+    </properties>
+
+    <dependencies>
+    	<!-- https://mvnrepository.com/artifact/jakarta.platform/jakarta.jakartaee-api -->
+        <dependency>
+            <groupId>jakarta.platform</groupId>
+            <artifactId>jakarta.jakartaee-api</artifactId>
+            <version>8.0.0</version>
+            <scope>provided</scope>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.eclipse.microprofile/microprofile -->
+        <dependency>
+            <groupId>org.eclipse.microprofile</groupId>
+            <artifactId>microprofile</artifactId>
+            <version>3.3</version>
+            <type>pom</type>
+            <scope>provided</scope>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.16</version>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
+    
+	<build>
+        <finalName>${project.artifactId}</finalName>
+		<plugins>
+        	<!-- https://mvnrepository.com/artifact/org.openapitools/openapi-generator -->
+			<plugin>
+			 	<groupId>org.openapitools</groupId>
+			    <artifactId>openapi-generator-maven-plugin</artifactId>
+			    <version>5.0.0</version>
+			    <executions>
+			        <execution>
+			            <goals>
+			                <goal>generate</goal>
+			            </goals>
+			            <configuration>
+			            	<generatorName>java</generatorName>
+			                <library>microprofile</library>
+							<inputSpec>${openApiUrl}</inputSpec>
+			                <apiPackage>${openApiModule}.api</apiPackage>
+			                <modelPackage>${openApiModule}.model</modelPackage>
+			                <output>${basedir}</output>
+			                <generateApiTests>false</generateApiTests>
+			                <generateModelTests>false</generateModelTests>
+			                <generateApiDocumentation>false</generateApiDocumentation>
+			                <generateModelDocumentation>false</generateModelDocumentation>
+			                <generateSupportingFiles>false</generateSupportingFiles>
+			                <templateDirectory>src/main/resources/template/microprofile</templateDirectory>
+			                <configOptions>
+			                	<sourceFolder>src/main/java</sourceFolder>
+			                	<dateLibrary>java8</dateLibrary>
+								<interfaceOnly>true</interfaceOnly>
+			                </configOptions>
+			            </configuration>
+			        </execution>
+			    </executions>
+			</plugin>
+        </plugins>
+    </build>
+
+</project>
