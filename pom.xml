@@ -43,7 +43,7 @@
         </dependency>
     </dependencies>
     
-	<build>
+    <build>
         <finalName>${project.artifactId}</finalName>
 		<plugins>
         	<!-- https://mvnrepository.com/artifact/org.openapitools/openapi-generator -->
@@ -59,7 +59,7 @@
 			            <configuration>
 			            	<generatorName>java</generatorName>
 			                <library>microprofile</library>
-							<inputSpec>${openApiUrl}</inputSpec>
+					<inputSpec>${openApiUrl}</inputSpec>
 			                <apiPackage>${openApiModule}.api</apiPackage>
 			                <modelPackage>${openApiModule}.model</modelPackage>
 			                <output>${basedir}</output>
@@ -72,7 +72,7 @@
 			                <configOptions>
 			                	<sourceFolder>src/main/java</sourceFolder>
 			                	<dateLibrary>java8</dateLibrary>
-								<interfaceOnly>true</interfaceOnly>
+						<interfaceOnly>true</interfaceOnly>
 			                </configOptions>
 			            </configuration>
 			        </execution>
